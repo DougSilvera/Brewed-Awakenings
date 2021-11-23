@@ -1,5 +1,22 @@
 import { getProducts } from "./database.js"
 
+document.addEventListener(
+    "click",
+    (clickEvent) => {
+        const itemClicked = clickEvent.target
+        if (itemClicked.id.startsWith("product")) {
+            const [,productId] = itemClicked.id.split("--")
+
+            for (const product of products) {
+                if (product.id === parseInt(productId)) {
+                    window.alert(`${product.name} is $${product.price.toFixed(2)}`)
+                }
+            }
+        }
+    }
+)
+
+
 const products = getProducts()
 
 export const Products = () => {
@@ -8,6 +25,7 @@ export const Products = () => {
 
     for (const product of products) {
         html += `<li id="product--${product.id}">${product.name}</li>`
+
     }
 
     html += "</ul>"
