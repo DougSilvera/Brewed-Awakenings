@@ -7,6 +7,31 @@ const employees = getEmployees()
 const orders = getOrders()
 
 
+document.addEventListener(
+    "click",
+    (clickEvent) => {
+        const itemClicked = clickEvent.target
+        if (itemClicked.id.startsWith("employee")) {
+            const [, employeeId] = itemClicked.id.split("--")
+
+            for (const employee of employees) {
+                if ( employee.id === parseInt(employeeId)) {
+
+                    const employeeOrders = orders.filter(  // <--- Go to YouTube and search "javascript array filter"
+                        (order) => {
+                            if (order.employeeId === employee.id) {
+                                return true
+                            }
+                        }
+                    )
+
+                    window.alert(` ${employee.name} sold ${employeeOrders.length} products `)
+                }
+            }
+        }
+    }
+)
+
 // Function whose responsibility is to find the product for an order
 const findproduct = (order, products) => {
     let orderProduct = null
